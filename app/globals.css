@@ -49,3 +49,32 @@ button{
 .password-toggle:hover {
   color: #374151; 
 }
+
+.noscrollbar {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.noscrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scrollbar style */
+.custom-scrollbar {
+  scrollbar-width: thin; 
+  scrollbar-color: #f43f5e transparent; 
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #df6479;
+  border-radius: 10px;
+}

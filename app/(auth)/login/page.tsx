@@ -30,7 +30,7 @@ const LoginPage = () => {
 
         toast.success(res.data.message);
 
-        if (res.data.user.role === 'admin') router.push('/admin/dashboard');
+        if (res.data.user.role === 'admin') router.push('/dashboard');
         else router.push('/library');
       } else {
         toast.error(res.data.message);

@@ -55,10 +55,12 @@ export function middleware(req: NextRequest) {
 // Apply middleware to these paths
 export const config = {
   matcher: [
-    '/', 
+    '/', // include root
     '/login',
     '/register',
     '/library/:path*',
+    '/dashboard/:path*',
+    '/genres/:path*',
     '/admin/:path*',
   ],
 };
