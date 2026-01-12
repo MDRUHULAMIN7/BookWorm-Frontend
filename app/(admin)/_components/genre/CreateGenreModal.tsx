@@ -17,6 +17,7 @@ interface CreateGenreModalProps {
   onSuccess: (genre: Genre) => void;
 }
 
+
 export default function CreateGenreModal({
   isOpen,
   onClose,
@@ -77,7 +78,7 @@ export default function CreateGenreModal({
         setErrors({});
         onClose();
       }
-    } catch (err: any) {
+    } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Failed to create genre');
     } finally {
       setLoading(false);
@@ -106,9 +107,8 @@ export default function CreateGenreModal({
       <div className="fixed inset-0  bg-opacity-70 backdrop-blur-xs pointer-events-auto" />
       <div 
         className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 relative z-10 pointer-events-auto"
-        onClick={(e) => e.stopPropagation()} // Prevent click from bubbling to backdrop
+        onClick={(e) => e.stopPropagation()} 
       >
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
           <h3 className="text-xl font-semibold text-gray-900">Create New Genre</h3>
           <button
@@ -123,7 +123,6 @@ export default function CreateGenreModal({
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6">
           <div className="space-y-4">
-            {/* Genre Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Genre Name <span className="text-red-500">*</span>

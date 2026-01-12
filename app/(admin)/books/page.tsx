@@ -5,7 +5,7 @@ import BooksClient from '../_components/book/BooksClient';
 
 async function getBooks() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/book?limit=100`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/book?limit=10`, {
       cache: 'no-store',
     });
     console.log(res)

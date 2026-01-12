@@ -41,12 +41,12 @@ export default function BooksClient({ initialBooks, genres }: Props) {
     setLoading(true);
     try {
       const res = await axios.get(`${BASE_URL}/api/v1/book`, {
-        params: { search, limit: 100 },
+        params: { search, limit: 10 },
       });
       if (res.data.success) {
         setBooks(res.data.data);
       }
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Failed to fetch books');
     } finally {
       setLoading(false);
@@ -95,7 +95,7 @@ export default function BooksClient({ initialBooks, genres }: Props) {
         fetchBooks(searchQuery);
         setDeleteConfirm(null);
       }
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Delete failed');
     }
   };

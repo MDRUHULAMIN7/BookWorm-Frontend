@@ -62,8 +62,8 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
               summary: fullBook.summary,
             });
           }
-        } catch (err: any) {
-          toast.error('Failed to fetch book details');
+        } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
+          toast.error('Failed to fetch book details',err);
         }
       };
       fetchBookDetails();
@@ -101,7 +101,7 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
       setImageUrl(data.secure_url);
       setValue('coverImage', data.secure_url);
       toast.success('Cover image uploaded!');
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       console.error(err);
       toast.error(err.message || 'Image upload failed!');
     } finally {
@@ -132,17 +132,25 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
           onSuccess();
         }
       }
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Operation failed');
     } finally {
       setSubmitting(false);
     }
   };
-
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl my-8">
-        <div className="flex items-center justify-between p-6 border-b">
+     <div 
+      className=" inset-0 z-50 flex items-center justify-center "
+      onClick={handleBackdropClick}
+    >
+    <div className="fixed inset-0  bg-opacity-70 backdrop-blur-xs  pointer-events-auto flex items-center justify-center p-4 z-50 overflow-y-auto">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl my-4">
+        <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-2xl font-bold text-gray-900">
             {mode === 'create' ? 'Add New Book' : 'Edit Book'}
           </h2>
@@ -154,7 +162,7 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
           {/* Cover Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Cover Image</label>
+            <label className="label-field">Cover Image</label>
             <div className="flex items-center gap-4">
               <label className="flex-1 flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 transition">
                 <Upload size={20} className="text-gray-400" />
@@ -181,11 +189,11 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+              <label className="label-field">Title *</label>
               <input
                 type="text"
                 placeholder="Book title"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+                className={`input-field ${
                   errors.title ? 'border-red-500' : 'border-gray-300'
                 }`}
                 {...register('title', { required: 'Title is required' })}
@@ -193,13 +201,12 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
               {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
             </div>
 
-            {/* Author */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Author *</label>
+              <label className="label-field">Author *</label>
               <input
                 type="text"
                 placeholder="Author name"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+                className={`input-field ${
                   errors.author ? 'border-red-500' : 'border-gray-300'
                 }`}
                 {...register('author', { required: 'Author is required' })}
@@ -208,11 +215,10 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
             </div>
           </div>
 
-          {/* Genre */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Genre *</label>
+            <label className="label-field">Genre *</label>
             <select
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`input-field ${
                 errors.genre ? 'border-red-500' : 'border-gray-300'
               }`}
               {...register('genre', { required: 'Genre is required' })}
@@ -226,36 +232,30 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
             </select>
             {errors.genre && <p className="text-red-500 text-xs mt-1">{errors.genre.message}</p>}
           </div>
-
-          {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+            <label className="label-field">Description *</label>
             <textarea
               rows={3}
               placeholder="Brief description"
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`input-field ${
                 errors.description ? 'border-red-500' : 'border-gray-300'
               }`}
               {...register('description', { required: 'Description is required' })}
             />
             {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
           </div>
-
-          {/* Summary */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Summary *</label>
+            <label className="label-field">Summary *</label>
             <textarea
               rows={4}
               placeholder="Detailed summary"
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+              className={`input-field ${
                 errors.summary ? 'border-red-500' : 'border-gray-300'
               }`}
               {...register('summary', { required: 'Summary is required' })}
             />
             {errors.summary && <p className="text-red-500 text-xs mt-1">{errors.summary.message}</p>}
           </div>
-
-          {/* Actions */}
           <div className="flex gap-3 pt-4">
             <button
               type="button"
@@ -274,6 +274,6 @@ export default function BookModal({ mode, book, genres, onClose, onSuccess }: Pr
           </div>
         </form>
       </div>
-    </div>
+    </div></div>
   );
 }
