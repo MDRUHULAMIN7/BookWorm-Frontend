@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+button{
+  cursor: pointer;
+}
+/* Label style */
+.label-field {
+  display: block;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  margin-bottom: 0.25rem; /* mb-1 */
+  color: #374151; /* gray-700 */
+}
+
+/* Input style */
+.input-field {
+  width: 100%;
+  padding: 0.5rem 1rem; 
+  border: 1px solid #d1d5db; 
+  border-radius: 0.375rem; 
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input-field:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); 
+}
+
+.input-field.error {
+  border-color: #f87171; 
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.3);
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem; 
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b7280; 
+  transition: color 0.2s;
+}
+
+.password-toggle:hover {
+  color: #374151; 
+}
