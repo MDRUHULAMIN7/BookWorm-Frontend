@@ -2,6 +2,7 @@
 import { Suspense } from 'react';
 import GenresTableSkeleton from '../_components/genre/GenresTableSkeleton';
 import GenresTable from '../_components/genre/GenresTable';
+import Header from '../_components/Header';
 interface Genre {
   _id: string;
   name: string;
@@ -43,15 +44,9 @@ export default async function GenresPage({
   const genresData = await getGenres(currentPage);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Genre Management</h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Manage your book genres and categories
-          </p>
-        </div>
+    <div className="admin-container">
 
+         <Header title='Genre Management' subtitle='Manage your book genres and categories' />
         <Suspense fallback={<GenresTableSkeleton />}>
           <GenresTable
             initialData={genresData.data}
@@ -59,7 +54,7 @@ export default async function GenresPage({
             currentPage={currentPage}
           />
         </Suspense>
-      </div>
+      
     </div>
   );
 }

@@ -1,4 +1,4 @@
-// app/(admin)/books/components/BooksClient.tsx
+// app/(admin)/books/_components/book/BooksClient.tsx
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -22,12 +22,20 @@ type Genre = {
   name: string;
 };
 
+type PaginationData = {
+  total: number;
+  page: number;
+  limit: number;
+  pages: number;
+};
+
 type Props = {
   initialBooks: Book[];
   genres: Genre[];
+  initialPagination?: PaginationData;
 };
 
-export default function BooksClient({ initialBooks, genres }: Props) {
+export default function BooksClient({ initialBooks, genres, initialPagination }: Props) {
   const [books, setBooks] = useState<Book[]>(initialBooks);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -35,35 +43,58 @@ export default function BooksClient({ initialBooks, genres }: Props) {
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagination, setPagination] = useState<PaginationData>({
+    total: initialPagination?.total || 0,
+    page: initialPagination?.page || 1,
+    limit: initialPagination?.limit || 10,
+    pages: initialPagination?.pages || 1,
+  });
 
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-  const fetchBooks = useCallback(async (search = '') => {
+
+  const fetchBooks = useCallback(async (search = '', page = 1) => {
     setLoading(true);
     try {
       const res = await axios.get(`${BASE_URL}/api/v1/book`, {
-        params: { search, limit: 10 },
+        params: { 
+          search, 
+          page,
+          limit: pagination.limit,
+        },
       });
       if (res.data.success) {
         setBooks(res.data.data);
+        setPagination(res.data.pagination);
+        setCurrentPage(page);
       }
     } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Failed to fetch books');
     } finally {
       setLoading(false);
     }
-  }, [BASE_URL]);
+  }, [BASE_URL, pagination.limit]);
 
-  // Debounced search
+  // Debounced search with pagination reset
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchQuery !== '') {
-        fetchBooks(searchQuery);
+        fetchBooks(searchQuery, 1); // Reset to page 1 when searching
       } else {
-        setBooks(initialBooks);
+        fetchBooks('', 1); // Reset to page 1 when clearing search
       }
     }, 500);
     return () => clearTimeout(timer);
-  }, [searchQuery, fetchBooks, initialBooks]);
+  }, [searchQuery, fetchBooks]);
+
+  // Fetch initial data or when page changes via other means
+  useEffect(() => {
+    if (searchQuery === '') {
+      fetchBooks('', currentPage);
+    }
+  }, [currentPage, fetchBooks, searchQuery]);
 
   const openCreateModal = () => {
     setModalMode('create');
@@ -83,7 +114,7 @@ export default function BooksClient({ initialBooks, genres }: Props) {
   };
 
   const handleSuccess = () => {
-    fetchBooks(searchQuery);
+    fetchBooks(searchQuery, currentPage);
     closeModal();
   };
 
@@ -92,17 +123,29 @@ export default function BooksClient({ initialBooks, genres }: Props) {
       const res = await axios.delete(`${BASE_URL}/api/v1/book/${id}`);
       if (res.data.success) {
         toast.success('Book deleted successfully!');
-        fetchBooks(searchQuery);
+        // If this was the last item on the page, go back a page
+        if (books.length === 1 && currentPage > 1) {
+          fetchBooks(searchQuery, currentPage - 1);
+        } else {
+          fetchBooks(searchQuery, currentPage);
+        }
         setDeleteConfirm(null);
       }
-    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
+    } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Delete failed');
     }
   };
 
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > pagination.pages) return;
+    fetchBooks(searchQuery, page);
+  };
+
+  const startIndex = (currentPage - 1) * pagination.limit + 1;
+  const endIndex = Math.min(currentPage * pagination.limit, pagination.total);
+
   return (
     <>
-      {/* Search & Create Button */}
       <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="relative w-full md:w-96">
@@ -125,13 +168,82 @@ export default function BooksClient({ initialBooks, genres }: Props) {
         </div>
       </div>
 
-      {/* Books Table */}
-      <BooksTable
-        books={books} 
-        loading={loading} 
-        onEdit={openEditModal}
-        onDelete={setDeleteConfirm}
-      />
+      {/* Books Table  */}
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+        <BooksTable
+          books={books}
+          loading={loading}
+          onEdit={openEditModal}
+          onDelete={setDeleteConfirm}
+        />
+        
+        {/* Pagination */}
+        {pagination.pages > 1 && (
+          <div className="px-4 sm:px-6 py-4 border-t border-gray-200">
+            {/* Mobile */}
+            <div className="sm:hidden mb-4 text-center text-sm text-gray-600">
+              Page {currentPage} of {pagination.pages}
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-sm text-gray-600 hidden sm:block">
+                Showing {startIndex} to {endIndex} of {pagination.total} books
+              </div>
+              <div className="flex flex-wrap gap-2 justify-center">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 min-w-20"
+                >
+                  Previous
+                </button>
+                <div className="flex gap-1">
+                  {[...Array(pagination.pages)].map((_, i) => {
+                    if (
+                      pagination.pages <= 5 ||
+                      i === 0 ||
+                      i === pagination.pages - 1 ||
+                      Math.abs(i + 1 - currentPage) <= 1
+                    ) {
+                      return (
+                        <button
+                          key={i + 1}
+                          onClick={() => handlePageChange(i + 1)}
+                          className={`px-3 py-1 rounded-md text-sm ${
+                            currentPage === i + 1
+                              ? 'bg-blue-600 text-white' 
+                              : 'border border-gray-300 hover:bg-gray-50'
+                          } hidden sm:block`}
+                        >
+                          {i + 1}
+                        </button>
+                      );
+                    } else if (i === 1 || i === pagination.pages - 2) {
+                      return (
+                        <span key={i + 1} className="px-2 py-1 text-gray-500 hidden sm:block">
+                          ...
+                        </span>
+                      );
+                    }
+                    return null;
+                  })}
+                  
+                  <div className="sm:hidden px-3 py-1 border border-gray-300 rounded-md text-sm bg-blue-600 text-white">
+                    {currentPage}
+                  </div>
+                </div>
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === pagination.pages}
+                  className="px-3 py-1 border border-gray-300 rounded-md text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 min-w-20"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Book Modal */}
       {isModalOpen && (

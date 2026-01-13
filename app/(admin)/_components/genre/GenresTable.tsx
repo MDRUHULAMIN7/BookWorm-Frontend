@@ -83,7 +83,7 @@ export default function GenresTable({
           <h2 className="text-lg sm:text-xl font-semibold text-gray-800">All Genres</h2>
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-green-700 transition w-full sm:w-auto"
           >
             <Plus size={20} />
             Create Genre
