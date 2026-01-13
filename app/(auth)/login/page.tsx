@@ -18,11 +18,12 @@ const LoginPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
   const onSubmit = async (data: LoginFormInputs) => {
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/v1/user/login', data);
+      const res = await axios.post(`${BASE_URL}/api/v1/user/login`, data);
       if (res.data.success) {
         setCookie(null, 'token', res.data.token, { path: '/' });
         setCookie(null, 'role', res.data.user.role, { path: '/' });

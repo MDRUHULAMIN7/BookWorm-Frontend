@@ -33,7 +33,7 @@ async function getBook(id: string): Promise<Book | null> {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/book/${id}`,
-      { cache: 'no-store' }
+      { next: { revalidate: 60 } } // Revalidate every 60 seconds
     );
 
     if (!res.ok) return null;
@@ -45,7 +45,6 @@ async function getBook(id: string): Promise<Book | null> {
     return null;
   }
 }
-
 export default async function BookDetailPage({
   params,
 }: BookDetailPageProps) {
@@ -57,7 +56,7 @@ export default async function BookDetailPage({
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Book Not Found</h1>
           <p className="text-gray-600">
-            The book you&apos;re looking for does not exist.
+            The book you are looking for does not exist.
           </p>
         </div>
       </div>
