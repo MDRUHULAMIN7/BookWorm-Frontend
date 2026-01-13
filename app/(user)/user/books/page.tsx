@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { Suspense } from 'react';
 import BooksGridSkeleton from '../../_components/BooksGridSkeleton';
 import BooksGrid from '../../_components/BooksGrid';

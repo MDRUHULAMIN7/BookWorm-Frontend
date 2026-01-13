@@ -1,4 +1,5 @@
-// app/(admin)/books/page.tsx
+export const dynamic = 'force-dynamic';
+
 import { Suspense } from 'react';
 import Header from '../../_components/Header';
 import BooksTableSkeleton from '../../_components/book/BooksTableSkeleton';
