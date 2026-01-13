@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import BooksGridSkeleton from '../../_components/BooksGridSkeleton';
 import BooksGrid from '../../_components/BooksGrid';
+import toast from 'react-hot-toast';
 
 async function getBooks() {
   try {
@@ -11,8 +12,8 @@ async function getBooks() {
     if (!res.ok) return [];
     const data = await res.json();
     return data.success ? data : { data: [], pagination: {} };
-  } catch (error) {
-    console.error('Failed to fetch books:', error);
+  } catch (error:any) { // eslint-disable-line @typescript-eslint/no-explicit-any
+    toast.error(error.message || 'Failed to fetch books:', );
     return { data: [], pagination: {} };
   }
 }

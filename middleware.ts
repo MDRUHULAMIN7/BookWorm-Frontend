@@ -45,9 +45,16 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/user/library', req.url));
   }
 
-  if (pathname.startsWith('/library') && role === 'admin') {
+  if (pathname.startsWith('/user') && role === 'admin') {
     return NextResponse.redirect(new URL('/admin/dashboard', req.url));
   }
+
+if (pathname.startsWith("/user") && role === "admin") {
+    return NextResponse.redirect(
+      new URL("/admin/dashboard", req.url)
+    );
+  }
+
 
   return NextResponse.next();
 }
@@ -59,6 +66,7 @@ export const config = {
     '/login',
     '/register',
     '/user/library/:path*',//only user
+    '/user/home/:path*',//only user
     '/admin/dashboard/:path*', //only admin
     '/admin/genre/:path*',//only admin
     '/admin/book/:path*',//only admin

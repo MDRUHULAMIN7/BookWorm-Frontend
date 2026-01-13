@@ -12,7 +12,6 @@ import {  Menu, X, LogOut, User, Library, Video, Search, Home } from 'lucide-rea
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<{ name: string; photo?: string } | null>(null);
-  console.log(user)
   const pathname = usePathname();
 
   const navLinks = [

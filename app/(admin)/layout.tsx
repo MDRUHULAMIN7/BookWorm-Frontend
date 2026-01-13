@@ -36,7 +36,6 @@ export default function AdminLayout({
         <Toaster position="top-right" />
         {!isMounted ? (
           <div className="flex min-h-screen bg-gray-50">
-            {/* Loading Skeleton */}
             <div className="hidden lg:block w-64 "></div>
             <main className="flex-1 p-4 lg:p-8">
               <div className="animate-pulse space-y-4">
@@ -50,7 +49,6 @@ export default function AdminLayout({
           <div className="flex min-h-screen bg-gray-50">
             <Sidebar />
             <main className="flex-1 w-full lg:w-auto min-w-0">
-              {/* Top spacing for mobile menu button */}
               <div className="lg:hidden h-16"></div>
               <div className="p-4 lg:p-8">
                 {children}
