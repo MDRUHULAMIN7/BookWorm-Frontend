@@ -30,7 +30,7 @@ export default function Sidebar() {
     { name: "Books", path: "/admin/books", icon: BookOpen },
     { name: "Users", path: "/admin/users", icon: Users },
     { name: "Reviews", path: "/admin/reviews", icon: Star },
-    { name: "Tutorials", path: "/admin/tutorials", icon: Video },
+    { name: "Tutorials", path: "/admin/tutorial", icon: Video },
   ];
 
   useEffect(() => {
