@@ -51,7 +51,7 @@ export default function DeleteGenreModal({
         onSuccess(genre._id);
         onClose();
       }
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Failed to delete genre');
     } finally {
       setLoading(false);
@@ -95,7 +95,7 @@ export default function DeleteGenreModal({
         <div className="p-6">
           <p className="text-gray-600 mb-4">
             Are you sure you want to delete the genre{' '}
-            <span className="font-semibold text-gray-900">"{genre.name}"</span>?
+            <span className="font-semibold text-gray-900">{genre.name}</span>?
           </p>
           <p className="text-sm text-gray-500">
             This action cannot be undone. All books associated with this genre may

@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
 
 type RegisterFormInputs = {
   name: string;
@@ -51,7 +52,7 @@ const RegisterPage = () => {
 
       setImageUrl(data.secure_url);
       toast.success('Photo uploaded successfully!');
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       console.error(err);
       toast.error(err.message || 'Image upload failed!');
     } finally {
@@ -73,7 +74,7 @@ const RegisterPage = () => {
       } else {
         toast.error(res.data.message);
       }
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Registration failed');
     } finally {
       setLoading(false);
@@ -99,7 +100,7 @@ const RegisterPage = () => {
           {imageUrl && (
             <div className="mt-2">
               <p className="text-green-600 text-sm">Photo uploaded!</p>
-              <img src={imageUrl} alt="Preview" className="w-20 h-20 object-cover rounded-full mt-2" />
+              <Image height={400} width={400} src={imageUrl} alt="Preview" className="w-20 h-20 object-cover rounded-full mt-2" />
             </div>
           )}
         </div>

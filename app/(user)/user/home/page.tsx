@@ -1,7 +1,13 @@
 import React from 'react'
+import LibraryStats from './_components/Stats'
 
-export default function page() {
+export default function HomePage() {
   return (
-    <div>page</div>
+    <div>
+
+      
+        {/* Stats Component */}
+        <LibraryStats />
+    </div>
   )
 }

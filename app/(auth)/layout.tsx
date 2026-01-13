@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { Toaster } from "react-hot-toast";
-import Navbar from "./(user)/_components/Navbar";
-import Footer from "./(user)/_components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Book Worm ",
+  title: "Book Worm Authentication",
   description: "A Personalized Book Recommendation & Reading Tracker Application",
 };
 
-export default function RootLayout({
+export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -30,11 +28,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       ><Toaster position="top-right" />
-      <Navbar />
       <main className="flex-1">
         {children}
       </main>
-      <Footer />
       </body>
     </html>
   );

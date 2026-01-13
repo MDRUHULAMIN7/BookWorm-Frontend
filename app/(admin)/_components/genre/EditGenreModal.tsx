@@ -88,7 +88,7 @@ export default function EditGenreModal({
         setErrors({});
         onClose();
       }
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Failed to update genre');
     } finally {
       setLoading(false);

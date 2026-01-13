@@ -19,7 +19,7 @@ type Props = {
 
 export default function BookCard({ book }: Props) {
   return (
-    <Link href={`/books/${book._id}`}>
+    <Link href={`/user/books/${book._id}`}>
       <div className="bg-white rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer transform hover:-translate-y-1">
         {/* Book Cover */}
         <div className="relative h-80 bg-gray-100 overflow-hidden">

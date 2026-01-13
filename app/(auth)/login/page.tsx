@@ -35,7 +35,7 @@ const LoginPage = () => {
       } else {
         toast.error(res.data.message);
       }
-    } catch (err: any) {
+    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
