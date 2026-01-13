@@ -77,6 +77,7 @@ export default function LibraryStats() {
           <div key={i} className="bg-white rounded-lg shadow p-6 animate-pulse">
             <div className="h-4 bg-gray-200 rounded w-24 mb-3"></div>
             <div className="h-8 bg-gray-200 rounded w-16"></div>
+            <div className="h-8 bg-gray-200 rounded w-16"></div>
           </div>
         ))}
       </div>
