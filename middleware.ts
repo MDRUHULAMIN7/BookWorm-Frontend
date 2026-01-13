@@ -13,9 +13,9 @@ export function middleware(req: NextRequest) {
     if (token) {
       // already logged-in user trying to access login/register
       if (role === 'admin') {
-        return NextResponse.redirect(new URL('/dashboard', req.url));
+        return NextResponse.redirect(new URL('/admin/dashboard', req.url));
       } else {
-        return NextResponse.redirect(new URL('/library', req.url));
+        return NextResponse.redirect(new URL('/user/library', req.url));
       }
     }
     return NextResponse.next();
@@ -28,9 +28,9 @@ export function middleware(req: NextRequest) {
     } else {
       // logged-in → redirect based on role
       if (role === 'admin') {
-        return NextResponse.redirect(new URL('/dashboard', req.url));
+        return NextResponse.redirect(new URL('/admin/dashboard', req.url));
       } else {
-        return NextResponse.redirect(new URL('/library', req.url));
+        return NextResponse.redirect(new URL('/user/library', req.url));
       }
     }
   }
@@ -42,7 +42,7 @@ export function middleware(req: NextRequest) {
 
   //Role-based access
   if (pathname.startsWith('/admin') && role !== 'admin') {
-    return NextResponse.redirect(new URL('/library', req.url));
+    return NextResponse.redirect(new URL('/user/library', req.url));
   }
 
   if (pathname.startsWith('/library') && role === 'admin') {
@@ -58,7 +58,7 @@ export const config = {
     '/', // include root
     '/login',
     '/register',
-    '/library/:path*',//only user
+    '/user/library/:path*',//only user
     '/admin/dashboard/:path*', //only admin
     '/admin/genre/:path*',//only admin
     '/admin/book/:path*',//only admin
