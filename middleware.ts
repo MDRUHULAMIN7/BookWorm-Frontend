@@ -60,7 +60,9 @@ export const config = {
     '/register',
     '/library/:path*',//only user
     '/admin/dashboard/:path*', //only admin
-    '/genres/:path*',//only admin
+    '/admin/genre/:path*',//only admin
+    '/admin/book/:path*',//only admin
+    '/admin/user/:path*',//only admin
     '/admin/:path*',//only admin
   ],
 };
