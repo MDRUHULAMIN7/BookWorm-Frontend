@@ -1,8 +1,8 @@
 // app/genres/page.tsx
 import { Suspense } from 'react';
-import GenresTableSkeleton from '../_components/genre/GenresTableSkeleton';
-import GenresTable from '../_components/genre/GenresTable';
-import Header from '../_components/Header';
+import Header from '../../_components/Header';
+import GenresTableSkeleton from '../../_components/genre/GenresTableSkeleton';
+import GenresTable from '../../_components/genre/GenresTable';
 interface Genre {
   _id: string;
   name: string;

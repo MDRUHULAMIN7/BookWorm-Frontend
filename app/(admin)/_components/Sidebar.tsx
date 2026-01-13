@@ -9,12 +9,12 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const menuItems = [
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Genres", path: "/genres" },
-    { name: "Books", path: "/books" },
-    { name: "Users", path: "/users" },
-    { name: "Reviews", path: "/reviews" },
-    { name: "Tutorials", path: "/tutorials" },
+    { name: "Dashboard", path: "/admin/dashboard" },
+    { name: "Genres", path: "/admin/genres" },
+    { name: "Books", path: "/admin/books" },
+    { name: "Users", path: "/admin/users" },
+    { name: "Reviews", path: "/admin/reviews" },
+    { name: "Tutorials", path: "/admin/tutorials" },
   ];
 
   const handleLogout = () => {

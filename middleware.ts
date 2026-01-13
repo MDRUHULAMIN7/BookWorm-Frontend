@@ -13,7 +13,7 @@ export function middleware(req: NextRequest) {
     if (token) {
       // already logged-in user trying to access login/register
       if (role === 'admin') {
-        return NextResponse.redirect(new URL('/admin/dashboard', req.url));
+        return NextResponse.redirect(new URL('/dashboard', req.url));
       } else {
         return NextResponse.redirect(new URL('/library', req.url));
       }
@@ -28,7 +28,7 @@ export function middleware(req: NextRequest) {
     } else {
       // logged-in → redirect based on role
       if (role === 'admin') {
-        return NextResponse.redirect(new URL('/admin/dashboard', req.url));
+        return NextResponse.redirect(new URL('/dashboard', req.url));
       } else {
         return NextResponse.redirect(new URL('/library', req.url));
       }
@@ -58,9 +58,9 @@ export const config = {
     '/', // include root
     '/login',
     '/register',
-    '/library/:path*',
-    '/dashboard/:path*',
-    '/genres/:path*',
-    '/admin/:path*',
+    '/library/:path*',//only user
+    '/admin/dashboard/:path*', //only admin
+    '/genres/:path*',//only admin
+    '/admin/:path*',//only admin
   ],
 };

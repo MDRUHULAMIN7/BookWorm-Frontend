@@ -1,9 +1,8 @@
 // app/(admin)/books/page.tsx
 import { Suspense } from 'react';
-import BooksTableSkeleton from '../_components/book/BooksTableSkeleton';
-import BooksClient from '../_components/book/BooksClient';
-import Header from '../_components/Header';
-
+import Header from '../../_components/Header';
+import BooksTableSkeleton from '../../_components/book/BooksTableSkeleton';
+import BooksClient from '../../_components/book/BooksClient';
 async function getBooks() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/book?limit=10`, {
