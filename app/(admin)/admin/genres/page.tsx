@@ -1,7 +1,7 @@
-import { Suspense } from 'react';
-import Header from '../../_components/Header';
-import GenresTableSkeleton from '../../_components/genre/GenresTableSkeleton';
-import GenresTable from '../../_components/genre/GenresTable';
+import { Suspense } from "react";
+import Header from "../../_components/Header";
+import GenresTableSkeleton from "../../_components/genre/GenresTableSkeleton";
+import GenresTable from "../../_components/genre/GenresTable";
 
 interface Genre {
   _id: string;
@@ -12,36 +12,19 @@ interface Genre {
 interface GenresResponse {
   success: boolean;
   data: Genre[];
-  pagination: {
-    total: number;
-    page: number;
-    limit: number;
-    pages: number;
-  };
 }
 
-async function getGenres(page: number = 1): Promise<GenresResponse> {
+async function getGenres(): Promise<GenresResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/genre?page=${page}&limit=10`,
-    { cache: 'no-store' }
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/genre?limit=1000`,
+    { cache: "no-store" }
   );
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch genres');
-  }
-
+  if (!res.ok) throw new Error("Failed to fetch genres");
   return res.json();
 }
 
-type PageProps = {
-  searchParams: Promise<{ page?: string }>;
-};
-
-export default async function GenresPage({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const currentPage = Number(params.page) || 1;
-
-  const genresData = await getGenres(currentPage);
+export default async function GenresPage() {
+  const genresData = await getGenres();
 
   return (
     <div className="admin-container">
@@ -51,11 +34,7 @@ export default async function GenresPage({ searchParams }: PageProps) {
       />
 
       <Suspense fallback={<GenresTableSkeleton />}>
-        <GenresTable
-          initialData={genresData.data}
-          pagination={genresData.pagination}
-          currentPage={currentPage}
-        />
+        <GenresTable initialData={genresData.data} />
       </Suspense>
     </div>
   );

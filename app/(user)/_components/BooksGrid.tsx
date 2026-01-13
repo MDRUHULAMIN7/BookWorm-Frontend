@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -23,7 +22,7 @@ type Genre = {
 
 type Props = {
   initialBooks: Book[];
-  initialPagination: any;// eslint-disable-line @typescript-eslint/no-explicit-any
+  initialPagination: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   genres: Genre[];
 };
 
@@ -43,13 +42,12 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
   const fetchBooks = useCallback(async () => {
     setLoading(true);
     try {
-      const params: any = {// eslint-disable-line @typescript-eslint/no-explicit-any
+      const params: any = {  // eslint-disable-line @typescript-eslint/no-explicit-any
         page: currentPage,
         limit,
         search: searchQuery,
         sortBy,
       };
-
       if (selectedGenres.length > 0) {
         params.genres = selectedGenres.join(',');
       }
@@ -59,33 +57,20 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
         setBooks(res.data.data);
         setTotalPages(res.data.pagination?.pages || 1);
       }
-    } catch (err: any) {// eslint-disable-line @typescript-eslint/no-explicit-any
+    } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(err.response?.data?.message || 'Failed to fetch books');
     } finally {
       setLoading(false);
     }
   }, [BASE_URL, currentPage, searchQuery, sortBy, selectedGenres]);
 
-  // Debounced search
+  // Single effect: fetch on any dependency change
   useEffect(() => {
     const timer = setTimeout(() => {
-      setCurrentPage(1);
       fetchBooks();
-    }, 500);
+    }, 500); // debounce search
     return () => clearTimeout(timer);
-  }, [searchQuery,fetchBooks]);
-
-  // Fetch on filter/sort change
-  useEffect(() => {
-    setCurrentPage(1);
-    fetchBooks();
-  }, [selectedGenres, sortBy,fetchBooks]);
-
-  // Fetch on page change
-  useEffect(() => {
-    fetchBooks();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentPage,fetchBooks]);
+  }, [fetchBooks]);
 
   const handleGenreToggle = (genreId: string) => {
     setSelectedGenres((prev) =>
@@ -93,12 +78,21 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
         ? prev.filter((id) => id !== genreId)
         : [...prev, genreId]
     );
+    setCurrentPage(1); // reset page when filters change
+  };
+
+
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1); // reset page when search changes
   };
 
   const clearFilters = () => {
     setSelectedGenres([]);
     setSortBy('');
     setSearchQuery('');
+    setCurrentPage(1);
   };
 
   return (
@@ -113,30 +107,20 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
               type="text"
               placeholder="Search by title or author..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
-          {/* Sort */}
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Sort By</option>
-            <option value="title">Title (A-Z)</option>
-            <option value="rating">Rating</option>
-            <option value="mostShelved">Most Popular</option>
-          </select>
+       
 
-          {/* Filter Toggle Button */}
+          {/* Filter Toggle */}
           <button
             onClick={() => setShowFilters(!showFilters)}
             className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
           >
             <Filter size={20} />
-            <span>Filters</span>
+            <span>Show Genre Filters</span>
             {selectedGenres.length > 0 && (
               <span className="ml-1 px-2 py-0.5 bg-white text-blue-500 rounded-full text-xs font-bold">
                 {selectedGenres.length}
