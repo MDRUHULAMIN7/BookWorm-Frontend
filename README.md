@@ -7,7 +7,7 @@ This is the **frontend (client)** built with **Next.js (App Router)** focusing o
 ---
 
 ## 🌐 Live Demo
-🔗 **Live Site:** https://your-client-live-link.vercel.app
+🔗 **Live Site:** https://book-worm-frontend-cyan.vercel.app/
 
 ---
 
@@ -75,10 +75,8 @@ This is the **frontend (client)** built with **Next.js (App Router)** focusing o
 User Home Page
 <img width="1574" height="1488" alt="User_Home_Page" src="https://github.com/user-attachments/assets/e6e91452-3e38-4fc2-bb3b-76ed81011875" />
 
+Admin Home Page 
+<img width="1585" height="1525" alt="book-worm-frontend-cyan vercel app_admin_dashboard (1)" src="https://github.com/user-attachments/assets/71e112dd-3e98-43d9-a3df-e9308b522a7b" />
 
-## 🛠 Environment Variables
 
-Create a `.env.local` file:
-
-```env
-NEXT_PUBLIC_API_BASE_URL=https://your-backend-api-url
+Backend Github : https://github.com/MDRUHULAMIN7/BookWorm-Backend
