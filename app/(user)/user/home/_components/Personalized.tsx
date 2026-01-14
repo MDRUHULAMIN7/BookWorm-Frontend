@@ -4,30 +4,24 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Sparkles, Info, BookOpen, Star, Users } from 'lucide-react';
+import { parseCookies } from 'nookies';
+import { RecommendationData } from '@/app/_types/user/Type';
 
-interface Book {
-  _id: string;
-  title: string;
-  author: string;
-  coverImage: string;
-  genre: { _id: string; name: string };
-  avgRating: number;
-  shelvedCount: number;
-  reason?: string;
-}
 
-interface RecommendationData {
-  recommendations: Book[];
-  isPersonalized: boolean;
-  booksRead: number;
-}
-
-export default function Personalized({ userId }: { userId: string }) {
+export default function Personalized() {
+    const [userId, setUserId] = useState<string | null>(null);
   const [data, setData] = useState<RecommendationData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
-
+  // Get user ID from cookies
+  useEffect(() => {
+    const cookies = parseCookies();
+    if (cookies.user) {
+      const user = JSON.parse(cookies.user);
+      setUserId(user._id || user.id);
+    }
+  }, []);
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {

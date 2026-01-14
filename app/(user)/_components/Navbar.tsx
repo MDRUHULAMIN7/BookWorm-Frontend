@@ -148,7 +148,7 @@ export default function Navbar() {
             {user && (
               <>
                 <Link
-                  href="/profile"
+                  href="/user/profile"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition"
                 >
