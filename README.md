@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 BookWorm – Personalized Book Recommendation & Reading Tracker (Client)
 
-## Getting Started
+BookWorm is a modern, responsive, book-themed web application that helps users discover books, track their reading progress, write reviews, and receive personalized recommendations based on their reading habits.
 
-First, run the development server:
+This is the **frontend (client)** built with **Next.js (App Router)** focusing on performance, SEO, and smooth user experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌐 Live Demo
+🔗 **Live Site:** https://book-worm-frontend-cyan.vercel.app/
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Tech Stack
 
-## Learn More
+- **Next.js 15 (App Router)**
+- **React 19**
+- **Tailwind CSS**
+- **Axios**
+- **JWT-based Authentication**
+- **Chart.js / Recharts**
+- **Cloudinary (Image Upload)**
+- **Vercel Deployment**
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎭 User Roles
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 👤 Normal User
+- Secure authentication (Login / Register)
+- Browse books with search, filter & pagination
+- Personal library:
+  - Want to Read
+  - Currently Reading (with progress tracking)
+  - Read
+- Write reviews & give ratings (1–5 stars)
+- Personalized book recommendations
+- Reading statistics dashboard
+- Embedded YouTube tutorials
 
-## Deploy on Vercel
+### 🛠 Admin
+- Admin dashboard with stats & charts
+- Manage books (Add / Edit / Delete)
+- Manage genres/categories
+- Moderate reviews (Approve / Delete)
+- Manage users & roles
+- Manage tutorial videos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧭 Routing & Access Control
+
+- 🔒 No public routes
+- 🔐 Authentication required for all pages
+- Default redirect behavior:
+  - **Admin → Dashboard**
+  - **User →  Library**
+- Role-based route protection
+
+---
+
+## ✨ Key Features
+
+- 📖 Personalized book recommendations
+- 📊 Reading analytics & progress tracking
+- ⭐ Review & rating moderation system
+- 🔍 Advanced search & filters
+- 📱 Fully responsive (mobile, tablet, desktop)
+- 🎨 Cozy, book-inspired UI/UX
+- ⚡ Optimized images & loading states
+
+---
+
+## 🖼 Screenshots
+User Home Page
+<img width="1574" height="1488" alt="User_Home_Page" src="https://github.com/user-attachments/assets/e6e91452-3e38-4fc2-bb3b-76ed81011875" />
+
+Admin Home Page 
+<img width="1585" height="1525" alt="book-worm-frontend-cyan vercel app_admin_dashboard (1)" src="https://github.com/user-attachments/assets/71e112dd-3e98-43d9-a3df-e9308b522a7b" />
+
+
+Backend Github : https://github.com/MDRUHULAMIN7/BookWorm-Backend
