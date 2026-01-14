@@ -65,12 +65,20 @@ export const config = {
     '/', // include root
     '/login',
     '/register',
+
+    '/user/:path*',//only user
     '/user/library/:path*',//only user
     '/user/home/:path*',//only user
-    '/admin/dashboard/:path*', //only admin
-    '/admin/genre/:path*',//only admin
-    '/admin/book/:path*',//only admin
-    '/admin/user/:path*',//only admin
+    '/user/books/:path*',//only user
+    '/user/profile/:path*',//only user
+    '/user/tutorial/:path*',//only user
+    
     '/admin/:path*',//only admin
+    '/admin/dashboard/:path*', //only admin
+    '/admin/genres/:path*',//only admin
+    '/admin/books/:path*',//only admin
+    '/admin/users/:path*',//only admin
+    '/admin/reviews/:path*',//only admin
+    
   ],
 };

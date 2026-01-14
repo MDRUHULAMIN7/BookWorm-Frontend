@@ -50,7 +50,7 @@ export default function TutorialPage() {
   };
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto  py-8 px-4 sm:px-6 lg:px-8">
+    <div className="admin-container">
 
       <Header title='Tutorials' subtitle='Tutorials for you'/>
 

@@ -15,9 +15,9 @@ import {
   Star,
 } from 'lucide-react';
 import Link from 'next/link';
-import AddToLibraryModal from './AddToLibraryModal';
-import AddReviewModal from '../user/books/_components/AddReviewModal';
-import ReviewList from '../user/books/_components/ReviewList';
+import AddToLibraryModal from '@/app/(user)/_components/AddToLibraryModal';
+import AddReviewModal from './AddReviewModal';
+import ReviewList from './ReviewList';
 
 type Book = {
   _id: string;
@@ -172,12 +172,12 @@ export default function BookDetailClient({ book }: Props) {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="admin-container ">
       {/* Existing Book Details Card */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-6 lg:p-8">
-          <div className="lg:col-span-1">
-            <div className="relative aspect-2/3 rounded-lg overflow-hidden shadow-2xl">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden admin-container mb-2">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 ">
+          <div className="lg:col-span-3">
+            <div className="relative aspect-3/3 rounded-lg overflow-hidden shadow-2xl">
               <Image
                 src={book.coverImage}
                 alt={book.title}
@@ -246,7 +246,7 @@ export default function BookDetailClient({ book }: Props) {
           </div>
 
           {/* Book Details */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-3 space-y-6">
             <div>
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
                 {book.title}
@@ -301,7 +301,7 @@ export default function BookDetailClient({ book }: Props) {
 
       {/* Reviews Section */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="p-6 lg:p-8">
+        <div className="admin-container">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">

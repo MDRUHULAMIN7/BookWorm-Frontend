@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import BookDetailClient from '@/app/(user)/_components/BookDetailClient';
-import BookDetailSkeleton from '@/app/(user)/_components/BookDetailSkeleton';
+import BookDetailSkeleton from '@/app/(user)/user/books/_components/BookDetailSkeleton';
+import BookDetailClient from '../_components/BookDetailClient';
 
 interface Genre {
   _id: string;
@@ -64,12 +64,11 @@ export default async function BookDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=''>
         <Suspense fallback={<BookDetailSkeleton />}>
           <BookDetailClient book={book} />
         </Suspense>
-      </div>
+      
     </div>
   );
 }

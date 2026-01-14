@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
-import { Search, Filter, X } from 'lucide-react';
-import Pagination from './Pagination';
-import BookCard from './BookCard';
+import { useState, useEffect, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { Search, Filter, X } from "lucide-react";
+import Pagination from "../../../_components/Pagination";
+import BookCard from "./BookCard";
 
 type Book = {
   _id: string;
@@ -25,54 +25,68 @@ type Genre = {
 
 type Props = {
   initialBooks: Book[];
-  initialPagination: any;// eslint-disable-line @typescript-eslint/no-explicit-any
+  initialPagination: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   genres: Genre[];
 };
 
-export default function BooksGrid({ initialBooks, initialPagination, genres }: Props) {
+export default function BooksGrid({
+  initialBooks,
+  initialPagination,
+  genres,
+}: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   const [books, setBooks] = useState<Book[]>(initialBooks);
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
-  const [selectedGenres, setSelectedGenres] = useState<string[]>(
-    searchParams.get('genres')?.split(',').filter(Boolean) || []
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("search") || ""
   );
-  const [sortBy, setSortBy] = useState(searchParams.get('sortBy') || '');
+  const [selectedGenres, setSelectedGenres] = useState<string[]>(
+    searchParams.get("genres")?.split(",").filter(Boolean) || []
+  );
+  const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "");
   const [ratingMin, setRatingMin] = useState<number>(
-    parseFloat(searchParams.get('ratingMin') || '0') || 0
+    parseFloat(searchParams.get("ratingMin") || "0") || 0
   );
   const [ratingMax, setRatingMax] = useState<number>(
-    parseFloat(searchParams.get('ratingMax') || '5') || 5
+    parseFloat(searchParams.get("ratingMax") || "5") || 5
   );
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(
-    parseInt(searchParams.get('page') || '1') || 1
+    parseInt(searchParams.get("page") || "1") || 1
   );
   const [totalPages, setTotalPages] = useState(initialPagination?.pages || 1);
   const [showFilters, setShowFilters] = useState(false);
   const limit = 10;
 
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
-  // Update URL with current filter state
   const updateURL = useCallback(() => {
     const params = new URLSearchParams();
-    
-    params.set('page', currentPage.toString());
-    if (searchQuery.trim()) params.set('search', searchQuery.trim());
-    if (selectedGenres.length > 0) params.set('genres', selectedGenres.join(','));
-    if (sortBy) params.set('sortBy', sortBy);
-    if (ratingMin > 0) params.set('ratingMin', ratingMin.toString());
-    if (ratingMax < 5) params.set('ratingMax', ratingMax.toString());
+
+    params.set("page", currentPage.toString());
+    if (searchQuery.trim()) params.set("search", searchQuery.trim());
+    if (selectedGenres.length > 0)
+      params.set("genres", selectedGenres.join(","));
+    if (sortBy) params.set("sortBy", sortBy);
+    if (ratingMin > 0) params.set("ratingMin", ratingMin.toString());
+    if (ratingMax < 5) params.set("ratingMax", ratingMax.toString());
 
     router.push(`?${params.toString()}`, { scroll: false });
-  }, [currentPage, searchQuery, selectedGenres, sortBy, ratingMin, ratingMax, router]);
+  }, [
+    currentPage,
+    searchQuery,
+    selectedGenres,
+    sortBy,
+    ratingMin,
+    ratingMax,
+    router,
+  ]);
 
   const fetchBooks = useCallback(async () => {
     setLoading(true);
     try {
-      const params: any = { // eslint-disable-line @typescript-eslint/no-explicit-any
+      const params: any = {
+        // eslint-disable-line @typescript-eslint/no-explicit-any
         page: currentPage,
         limit,
         ratingMin,
@@ -81,29 +95,34 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
 
       if (searchQuery.trim()) params.search = searchQuery.trim();
       if (sortBy) params.sortBy = sortBy;
-      if (selectedGenres.length > 0) params.genres = selectedGenres.join(',');
-
-      console.log('Fetching with params:', params);
-
+      if (selectedGenres.length > 0) params.genres = selectedGenres.join(",");
       const res = await axios.get(`${BASE_URL}/api/v1/book`, { params });
-      
-      console.log('Response:', res.data);
-      
+
       if (res.data.success) {
         setBooks(res.data.data);
         setTotalPages(res.data.pagination?.pages || 1);
       } else {
-        toast.error('Failed to fetch books');
+        toast.error("Failed to fetch books");
       }
-    } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
-      console.error('Error fetching books:', err);
-      toast.error(err.response?.data?.message || 'Failed to fetch books');
+    } catch (err: any) {
+      // eslint-disable-line @typescript-eslint/no-explicit-any
+      console.error("Error fetching books:", err);
+      toast.error(err.response?.data?.message || "Failed to fetch books");
       setBooks([]);
       setTotalPages(1);
     } finally {
       setLoading(false);
     }
-  }, [BASE_URL, currentPage, searchQuery, sortBy, selectedGenres, ratingMin, ratingMax, limit]);
+  }, [
+    BASE_URL,
+    currentPage,
+    searchQuery,
+    sortBy,
+    selectedGenres,
+    ratingMin,
+    ratingMax,
+    limit,
+  ]);
 
   // Fetch books and update URL
   useEffect(() => {
@@ -114,7 +133,9 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
 
   const handleGenreToggle = (genreId: string) => {
     setSelectedGenres((prev) =>
-      prev.includes(genreId) ? prev.filter((id) => id !== genreId) : [...prev, genreId]
+      prev.includes(genreId)
+        ? prev.filter((id) => id !== genreId)
+        : [...prev, genreId]
     );
     setCurrentPage(1);
   };
@@ -159,14 +180,15 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
 
   const clearFilters = () => {
     setSelectedGenres([]);
-    setSortBy('');
+    setSortBy("");
     setRatingMin(0);
     setRatingMax(5);
-    setSearchQuery('');
+    setSearchQuery("");
     setCurrentPage(1);
   };
 
-  const hasActiveFilters = selectedGenres.length > 0 || ratingMin > 0 || ratingMax < 5;
+  const hasActiveFilters =
+    selectedGenres.length > 0 || ratingMin > 0 || ratingMax < 5;
 
   return (
     <div>
@@ -175,7 +197,10 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Search */}
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              size={20}
+            />
             <input
               type="text"
               placeholder="Search by title or author..."
@@ -191,10 +216,11 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
             className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
           >
             <Filter size={20} />
-            <span>{showFilters ? 'Hide' : 'Show'} Filters</span>
+            <span>{showFilters ? "Hide" : "Show"} Filters</span>
             {hasActiveFilters && (
               <span className="ml-1 px-2 py-0.5 bg-white text-blue-500 rounded-full text-xs font-bold">
-                {selectedGenres.length + (ratingMin > 0 || ratingMax < 5 ? 1 : 0)}
+                {selectedGenres.length +
+                  (ratingMin > 0 || ratingMax < 5 ? 1 : 0)}
               </span>
             )}
           </button>
@@ -235,8 +261,8 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
                     onClick={() => handleGenreToggle(genre._id)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition ${
                       selectedGenres.includes(genre._id)
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     }`}
                   >
                     {genre.name}
@@ -247,7 +273,9 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
 
             {/* Rating */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Filter by Rating</h3>
+              <h3 className="font-semibold text-gray-900 mb-2">
+                Filter by Rating
+              </h3>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <label className="text-sm text-gray-600">Min:</label>
@@ -297,7 +325,9 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
       ) : books.length === 0 ? (
         <div className="text-center py-20">
           <p className="text-xl text-gray-500">No books found</p>
-          <p className="text-sm text-gray-400 mt-2">Try adjusting your search or filters</p>
+          <p className="text-sm text-gray-400 mt-2">
+            Try adjusting your search or filters
+          </p>
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
@@ -318,10 +348,10 @@ export default function BooksGrid({ initialBooks, initialPagination, genres }: P
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="mt-8">
-              <Pagination 
-                currentPage={currentPage} 
-                totalPages={totalPages} 
-                onPageChange={setCurrentPage} 
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
               />
             </div>
           )}

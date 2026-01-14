@@ -29,7 +29,8 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-  },typescript: {
+  },
+  typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
@@ -41,6 +42,7 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  
 };
 
 export default nextConfig;

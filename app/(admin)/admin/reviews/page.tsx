@@ -189,10 +189,10 @@ export default function ReviewPage() {
 
   if (loading && reviews.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 p-4 md:p-6">
-        <div className="max-w-7xl mx-auto">
+      <div className="admin-container">
+        <div className=" mx-auto">
           <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
+            <div className="h-8  rounded w-1/4 mb-6"></div>
             <div className="space-y-4">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="h-24 bg-gray-200 rounded"></div>
@@ -205,8 +205,8 @@ export default function ReviewPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="admin-container">
+      <div className="mx-auto">
 
         <Header title='Reviews Management' subtitle=' Manage and moderate user reviews '/>
 

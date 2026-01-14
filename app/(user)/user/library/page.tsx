@@ -203,8 +203,8 @@ useEffect(() => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="admin-container w-full">
+      <div >
 
   <Header title='My Library' subtitle='Manage your reading collection' />
 
@@ -229,7 +229,7 @@ useEffect(() => {
 
         {/* Empty State */}
         {filteredLibrary.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-12 text-center">
+          <div className="bg-white rounded-lg shadow  text-center admin-container">
             <BookOpen className="mx-auto text-gray-400 mb-4" size={48} />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               No books found
@@ -240,7 +240,7 @@ useEffect(() => {
                 : `You don't have any books in "${getShelfLabel(filter)}" yet`}
             </p>
             <Link
-              href="/books"
+              href="/user/books"
               className="inline-block px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
             >
               Browse Books

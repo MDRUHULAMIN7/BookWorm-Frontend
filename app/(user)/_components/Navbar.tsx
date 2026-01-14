@@ -76,7 +76,7 @@ export default function Navbar() {
           </div>
 
           {/* User Menu  */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             {user ? (
               <>
                 <Link
@@ -86,9 +86,9 @@ export default function Navbar() {
                   <Image
                     src={user.photo || '/default-avatar.png'}
                     alt={user.name}
-                    width={32}
-                    height={32}
-                    className="rounded-full ring-2 ring-blue-500"
+                    width={100}
+                    height={100}
+                    className="rounded-full h-10 w-10 ring-2 ring-blue-500 "
                   />
                   <span className="font-medium text-gray-700">{user.name}</span>
                 </Link>
@@ -114,7 +114,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -123,7 +123,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white">
+        <div className=" border-t border-gray-200 bg-white">
           <div className="px-4 py-4 space-y-2">
             {navLinks.map((link) => {
               const Icon = link.icon;
@@ -133,7 +133,7 @@ export default function Navbar() {
                   key={link.path}
                   href={link.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition ${
+                  className={`md:hidden flex items-center gap-3 px-4 py-3 rounded-lg transition ${
                     isActive
                       ? 'bg-blue-500 text-white'
                       : 'text-gray-700 hover:bg-gray-100'
@@ -155,9 +155,9 @@ export default function Navbar() {
                   <Image
                     src={user.photo || '/default-avatar.png'}
                     alt={user.name}
-                    width={32}
-                    height={32}
-                    className="rounded-full ring-2 ring-blue-500"
+                    width={200}
+                    height={200}
+                    className="rounded-full h-10 w-10 ring-2 ring-blue-500"
                   />
                   <span className="font-medium">{user.name}</span>
                 </Link>
