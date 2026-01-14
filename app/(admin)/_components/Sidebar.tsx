@@ -79,22 +79,25 @@ export default function Sidebar() {
           w-64 flex flex-col shadow-2xl
         `}
       >
-        {/* Logo & Brand */}
-        <div className="p-6 border-b border-gray-700">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <BookOpen className="text-white" size={24} />
+                 {/* Logo */}
+          <Link href="/" className="flex items-center  gap-x-4 group mx-auto  mt-1">
+            <div className="w-12 h-12  flex items-center justify-center transform group-hover:scale-110 transition">
+              <Image
+              src="/logo.png" 
+              height={500}
+              width={500}
+              alt='logo'
+              className='rounded-lg'
+              />
             </div>
-            <div>
-              <h1 className="text-xl font-bold">BookWorm</h1>
-              <p className="text-xs text-gray-400">Admin Panel</p>
-            </div>
-          </div> 
-        </div>
+            <span className="text-xl font-bold text-blue-400">
+              Admin Panel
+            </span>
+          </Link>
 
         {/* User Info Card */}
         {user && (
-          <div className="p-4 mx-4 mt-4">
+          <div className="p-4 mx-4">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <Image

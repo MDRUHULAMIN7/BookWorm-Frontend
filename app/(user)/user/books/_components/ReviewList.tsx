@@ -51,8 +51,8 @@ export default function ReviewList({ reviews }: Props) {
           key={review._id}
           className="border border-gray-200 rounded-xl p-6 hover:border-gray-300 transition"
         >
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col md:flex-row gap-2 items-start mb-4">
+            <div className="flex items-center gap-3 ">
               <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100">
                 {review.userId.photo ? (
                   <Image
@@ -79,7 +79,7 @@ export default function ReviewList({ reviews }: Props) {
               </div>
             </div>
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 pt-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}

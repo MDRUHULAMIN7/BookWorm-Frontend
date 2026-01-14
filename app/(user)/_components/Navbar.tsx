@@ -80,7 +80,7 @@ export default function Navbar() {
             {user ? (
               <>
                 <Link
-                  href="/profile"
+                  href="/user/profile"
                   className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition"
                 >
                   <Image
