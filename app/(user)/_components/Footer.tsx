@@ -7,15 +7,15 @@ export default function Footer() {
 
   const footerLinks = {
     'Quick Links': [
-      { name: 'Browse Books', path: '/books' },
-      { name: 'My Library', path: '/library' },
-      { name: 'Tutorials', path: '/tutorials' },
+      { name: 'Browse Books', path: '/user/books' },
+      { name: 'My Library', path: '/user/library' },
+      { name: 'Tutorials', path: '/user/tutorials' },
     ],
     'Help & Support': [
-      { name: 'About Us', path: '/about' },
-      { name: 'Contact', path: '/contact' },
-      { name: 'Privacy Policy', path: '/privacy' },
-      { name: 'Terms of Service', path: '/terms' },
+      { name: 'About Us', path: '/' },
+      { name: 'Contact', path: '/' },
+      { name: 'Privacy Policy', path: '/' },
+      { name: 'Terms of Service', path: '/' },
     ],
   };
 
@@ -73,8 +73,8 @@ export default function Footer() {
             <div key={category}>
               <h3 className="font-semibold text-gray-900 mb-4">{category}</h3>
               <ul className="space-y-2">
-                {links.map((link) => (
-                  <li key={link.path}>
+                {links.map((link,index) => (
+                  <li key={index}>
                     <Link
                       href={link.path}
                       className="text-gray-600 hover:text-blue-500 transition text-sm"
@@ -112,17 +112,6 @@ export default function Footer() {
             <p className="text-gray-600 text-sm">
               © {currentYear} BookWorm. All rights reserved.
             </p>
-            <div className="flex items-center gap-6">
-              <Link href="/privacy" className="text-gray-600 hover:text-blue-500 text-sm transition">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-gray-600 hover:text-blue-500 text-sm transition">
-                Terms of Service
-              </Link>
-              <Link href="/contact" className="text-gray-600 hover:text-blue-500 text-sm transition">
-                Contact
-              </Link>
-            </div>
           </div>
         </div>
       </div>
