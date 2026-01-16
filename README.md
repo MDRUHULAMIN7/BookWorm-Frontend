@@ -78,5 +78,23 @@ User Home Page
 Admin Home Page 
 <img width="1585" height="1525" alt="book-worm-frontend-cyan vercel app_admin_dashboard (1)" src="https://github.com/user-attachments/assets/71e112dd-3e98-43d9-a3df-e9308b522a7b" />
 
+LightHouse Test 
+
+Root Page 
+<img width="1585" height="497" alt="image" src="https://github.com/user-attachments/assets/6b4b1f81-dc74-4514-902c-e240c65bdfed" />
+
+User Library 
+<img width="1586" height="538" alt="image" src="https://github.com/user-attachments/assets/745cbe87-c3cf-41df-9f49-a378a9686a1a" />
+
+User Home Page 
+<img width="1596" height="553" alt="image" src="https://github.com/user-attachments/assets/0ec058e7-06cc-4163-afef-0c2a65a3c675" />
+Browse Books
+<img width="1584" height="525" alt="image" src="https://github.com/user-attachments/assets/4586e022-4a70-4938-8063-38bc7d873645" />
+
+Admin Dashboard 
+<img width="1575" height="546" alt="image" src="https://github.com/user-attachments/assets/1d061c7c-81df-48e4-a8cf-f29875994c0d" />
+
+
+
 
 Backend Github : https://github.com/MDRUHULAMIN7/BookWorm-Backend
